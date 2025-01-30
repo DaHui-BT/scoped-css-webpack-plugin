@@ -33,8 +33,6 @@ Webpack Configuration
 ```javascript
 // webpack.config.js
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 
 const BabelScopedPlugin = require('scoped-css-loader/babel-scoped-plugin')
 const PostcssScopedPlugin = require('scoped-css-loader/postcss-scoped-plugin')
@@ -81,6 +79,33 @@ module.exports = {
       }
     ]
   }
+}
+```
+
+Component css file
+
+```css
+.my-component {
+  padding: 10px 20px;
+  background-color: blue;
+}
+
+.my-component-title {
+  color: red;
+}
+```
+
+Component JSX file
+
+```jsx
+import './mycomponent.css'
+
+function MyComponent() {
+  return (
+    <div className='my-component'>
+      <h1 className='my-component-title'>Hello World</h1>
+    </div>
+  );
 }
 ```
 
@@ -141,12 +166,24 @@ Mark entry files in Babel config:
 {
   entryFiles: [
     './src/main.js',       // Main entry
-    './src/global.css'     // Global styles
   ]
 }
 ```
 
 ### Scoped JSX
+Input:
+
+```jsx
+function MyComponent() {
+  return (
+    <div>
+      <h1>Hello World</h1>
+    </div>
+  );
+}
+```
+
+Output:
 
 ```jsx
 function MyComponent() {
