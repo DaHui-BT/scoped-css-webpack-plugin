@@ -1,0 +1,11 @@
+{
+  "name": "scoped-css-webpack-plugin",
+  "version": "0.0.2",
+  "main": "src/webpack-plugin.js",
+  "peerDependencies": {
+    "webpack": "^5.0.0",
+    "babel-loader": "^9.2.1",
+    "@babel/preset-react": "^7.26.3",
+    "postcss-loader": "^8.1.1"
+  }
+}
