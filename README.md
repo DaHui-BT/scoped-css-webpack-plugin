@@ -34,8 +34,7 @@ Webpack Configuration
 // webpack.config.js
 const path = require('path')
 
-const BabelScopedPlugin = require('scoped-css-loader/babel-scoped-plugin')
-const PostcssScopedPlugin = require('scoped-css-loader/postcss-scoped-plugin')
+const {BabelScopedPlugin, PostcssScopedPlugin} = require('scoped-css-loader')
 
 module.exports = {
   module: {
