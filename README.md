@@ -33,8 +33,8 @@ Webpack Configuration
 ```javascript
 // webpack.config.js
 const path = require('path')
+const {BabelScopedPlugin, PostcssScopedPlugin} = require('scoped-css-webpack-plugin')
 
-const {BabelScopedPlugin, PostcssScopedPlugin} = require('scoped-css-loader')
 
 module.exports = {
   module: {
@@ -49,7 +49,8 @@ module.exports = {
               presets: ['@babel/preset-react'],
               plugins: [
                 [
-                  BabelScopedPlugin
+                  BabelScopedPlugin,
+                  {entryFiles: [path.resolve(__dirname, './src/main.js')]}
                 ]
               ]
             }
@@ -59,6 +60,8 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
+          'style-loader',
+          'css-loader',
           {
             loader: 'postcss-loader',
             options: {
@@ -72,8 +75,8 @@ module.exports = {
             }
           },
           {
-            loader: require('scoped-css-loader/scope-id-loader')
-          }
+            loader: 'scoped-css-webpack-plugin/loaders/scope-id-loader'
+          },
         ]
       }
     ]
@@ -113,10 +116,12 @@ function MyComponent() {
 ### Babel Plugin Options
 
 ```javascript
+const {BabelScopedPlugin} = require('scoped-css-webpack-plugin')
+
 {
   plugins: [
-    ['scoped-css-loader/babel-scoped-plugin', {
-      entryFiles: ['./src/main.js'], // Required: entry files array
+    [BabelScopedPlugin, {
+      entryFiles: [path.resolve(__dirname, './src/main.js')], // Required: entry files array
       prefix: 'data-scope-',         // Scope ID prefix
       fileSuffix: [                  // File extensions to process
         '.css',
@@ -134,9 +139,11 @@ function MyComponent() {
 ### PostCSS Plugin Options
 
 ```javascript
+const {PostcssScopedPlugin} = require('scoped-css-webpack-plugin')
+
 {
   plugins: [
-    ['scoped-css-loader/postcss-scoped-plugin', {
+    [PostcssScopedPlugin, {
       includeTypes: ['class', 'id', 'tag'],  // Selector types to scope
       excludeTypes: ['pseudo', 'comment'],   // Selector types to exclude
       commentPrefix: '@scope-id'             // Comment marker prefix
@@ -148,11 +155,23 @@ function MyComponent() {
 ## 🎯 Advanced Features
 ### Custom Scope Formatting
 ```javascript
-// Custom ID generator example
-const { generateScopeId } = require('react-scoped-styles/utils');
+const {BabelScopedPlugin} = require('scoped-css-webpack-plugin')
 
-function customGenerator(filePath) {
-  return `app-${generateScopeId(filePath)}-${Date.now()}`;
+{
+  plugins: [
+    [BabelScopedPlugin, {
+      entryFiles: [path.resolve(__dirname, './src/main.js')], // Required: entry files array
+      prefix: 'data-scope-',         // Scope ID prefix
+      fileSuffix: [                  // File extensions to process
+        '.css',
+        '.scss',
+        '.sass',
+        '.less'
+      ],
+      generateScopeId: (filePath) =>  // Custom ID generator
+        `scope-${md5(filePath).slice(0,8)}`
+    }]
+  ]
 }
 ```
 
@@ -162,10 +181,36 @@ Mark entry files in Babel config:
 
 ```javascript
 // webpack.config.js
-{
-  entryFiles: [
-    './src/main.js',       // Main entry
-  ]
+const {BabelScopedPlugin} = require('scoped-css-webpack-plugin')
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              // if you are in a react project
+              presets: ['@babel/preset-react'],
+              plugins: [
+                [
+                  BabelScopedPlugin,
+                  {
+                    entryFiles: [path.resolve(__dirname, './src/main.js')],
+                    generateScopeId: (filePath) =>  // Custom ID generator
+                      `scope-${md5(filePath).slice(0,8)}`
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      // ...
+    ]
+  }
 }
 ```
 
