@@ -1,6 +1,6 @@
 {
   "name": "scoped-css-webpack-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "peerDependencies": {
     "webpack": "^5.0.0",
