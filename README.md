@@ -100,6 +100,7 @@ Component css file
 Component JSX file
 
 ```jsx
+// you must add the suffix like .css .less .sass
 import './mycomponent.css'
 
 function MyComponent() {

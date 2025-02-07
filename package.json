@@ -1,7 +1,11 @@
 {
   "name": "scoped-css-webpack-plugin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
+  "keywords": ["React", "Webpack", "PostCSS", "BabelLoader"],
+  "author": "yaooh",
+  "license": "MIT",
+  "description": "A zero-configuration solution for scoped CSS in React applications, providing automatic style encapsulation similar to Vue's scoped styles.",
   "peerDependencies": {
     "webpack": "^5.0.0",
     "babel-loader": "^9.2.1",
