@@ -27,7 +27,6 @@ const BASE_OPTIONS: BaseOptions = {
  * @returns {Object} Babel visitor object
  */
 export default function(babel: { types: typeof t}): PluginObj {
-  const { types } = babel;
 
   /**
    * Validate required configuration

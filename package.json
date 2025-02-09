@@ -1,6 +1,6 @@
 {
   "name": "scoped-css-webpack-plugin",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -16,8 +16,6 @@
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@types/babel__core": "^7.20.5",
-    "@types/crypto-js": "^4.2.2",
-    "crypto-js": "^4.2.0",
     "rollup": "^4.34.6",
     "rollup-plugin-delete": "^2.1.0",
     "rollup-plugin-dts": "^6.1.1",
@@ -44,6 +42,8 @@
   ],
   "description": "A zero-configuration solution for scoped CSS in React applications, providing automatic style encapsulation similar to Vue's scoped styles.",
   "dependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "crypto-js": "^4.2.0",
     "postcss-selector-parser": "^7.1.0"
   }
 }
