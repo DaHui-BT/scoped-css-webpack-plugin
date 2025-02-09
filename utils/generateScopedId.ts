@@ -1,4 +1,4 @@
-const { createHash } = require('crypto');
+import CryptoJS from 'crypto-js'
 
 /**
  * Generates a unique scope ID based on file path
@@ -7,18 +7,16 @@ const { createHash } = require('crypto');
  * @returns {string} The generated scope ID with prefix
  * @throws {TypeError} If filePath is not a string
  */
-const generateScopeId = (filePath, tagPrefix = 'data-scope-') => {
+const generateScopeId = (filePath: string, tagPrefix: string = 'data-scope-'): string => {
   if (typeof filePath !== 'string') {
     throw new TypeError('filePath must be a string');
   }
-
-  const hash = createHash('sha256')
-    .update(filePath)
-    .digest('hex');
+  
+  const hash = CryptoJS.SHA256(filePath).toString(CryptoJS.enc.Hex)
 
   return `${tagPrefix}${hash.slice(0, 8)}`;
 };
 
-module.exports = {
+export {
   generateScopeId
 };

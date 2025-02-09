@@ -45,7 +45,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              // if you are in a react project
+              // if you are using in a react project
               presets: ['@babel/preset-react'],
               plugins: [
                 [
@@ -74,9 +74,7 @@ module.exports = {
               }
             }
           },
-          {
-            loader: 'scoped-css-webpack-plugin/loaders/scope-id-loader'
-          },
+          'scoped-css-webpack-plugin/lib/loader'
         ]
       }
     ]

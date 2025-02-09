@@ -1,4 +1,5 @@
-const parser = require('postcss-selector-parser');
+//@ts-nocheck
+import parser, { Attribute, AttributeOptions } from 'postcss-selector-parser'
 
 /**
  * PostCSS plugin to add scoped attributes to CSS selectors.
@@ -7,7 +8,7 @@ const parser = require('postcss-selector-parser');
  * @param {string[]} [options.excludeTypes=['pseudo', 'combinator', 'comment']] - Node types to exclude from scoping.
  * @returns {Object} - PostCSS plugin object.
  */
-function PostcssScopedPlugin(options = {}) {
+function PostcssScopedPlugin(options: { includeTypes?: string[], excludeTypes?: string[] } = {}) {
   // Default configuration
   const baseOptions = {
     includeTypes: ['class', 'id', 'tag'], // Node types to include for scoping
@@ -24,7 +25,7 @@ function PostcssScopedPlugin(options = {}) {
   function createScopedPlugin() {
     return {
       postcssPlugin: 'postcss-scoped',
-      Once(root, { result }) {
+      Once(root: any, { result }: {result: any}) {
         // Regular expression to extract scope ID from the first comment
         const scopeId = root.first?.text?.match(/@scopeId: (\S+)/)?.[1];
 
@@ -32,22 +33,23 @@ function PostcssScopedPlugin(options = {}) {
         if (!scopeId) return;
 
         // Process each rule in the CSS
-        root.walkRules((rule) => {
-          rule.selectors = rule.selectors.map((selector) => {
-            return parser((selectors) => {
-              selectors.walk((node) => {
+        root.walkRules((rule: any) => {
+          rule.selectors = rule.selectors.map((selector: parser.Selectors) => {
+            return parser((selectors: parser.Root) => {
+              selectors.walk((node: parser.Node) => {
                 // Skip excluded node types
                 if (config.excludeTypes.includes(node.type)) return;
 
                 // Add scoped attribute to included node types
                 if (config.includeTypes.includes(node.type)) {
-                  const attribute = parser.attribute({
+                  const attribute: Attribute = parser.attribute({
                     attribute: scopeId,
-                    operator: '', // No operator (e.g., =, ~=)
+                    // operator: '', // No operator (e.g., =, ~=)
                     value: undefined,
                     raws: { value: '' }
-                  });
-                  node.parent.insertAfter(node, attribute);
+                  } as AttributeOptions)
+                  
+                  node?.parent?.insertAfter(node, attribute);
                 }
               });
             }).processSync(selector);
@@ -63,4 +65,4 @@ function PostcssScopedPlugin(options = {}) {
   return createScopedPlugin;
 }
 
-module.exports = PostcssScopedPlugin;
+export default PostcssScopedPlugin

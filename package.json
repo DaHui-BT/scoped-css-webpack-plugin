@@ -1,21 +1,39 @@
 {
   "name": "scoped-css-webpack-plugin",
-  "version": "0.0.6",
-  "main": "index.js",
-  "keywords": ["React", "Webpack", "PostCSS", "BabelLoader"],
-  "author": "yaooh",
-  "license": "MIT",
-  "repository": {"url": ""},
-  "description": "A zero-configuration solution for scoped CSS in React applications, providing automatic style encapsulation similar to Vue's scoped styles.",
-  "peerDependencies": {
-    "webpack": "^5.0.0",
-    "babel-loader": "^9.2.1",
-    "@babel/preset-react": "^7.26.3",
-    "postcss-loader": "^8.1.1"
+  "version": "0.0.7",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rollup -c"
   },
   "devDependencies": {
-    "postcss-selector-parser": "^7.0.0"
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@types/babel__core": "^7.20.5",
+    "@types/crypto-js": "^4.2.2",
+    "crypto-js": "^4.2.0",
+    "rollup": "^4.34.6",
+    "rollup-plugin-delete": "^2.1.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.7.3",
+    "@babel/core": "^7.26.8",
+    "webpack": "^5.97.1"
   },
+  "keywords": [
+    "React",
+    "Webpack",
+    "PostCSS",
+    "BabelLoader"
+  ],
+  "author": "yaooh",
+  "license": "MIT",
   "homepage": "https://github.com/DaHui-BT/scoped-css-webpack-plugin",
   "contributors": [
     {
@@ -23,5 +41,9 @@
       "email": "dahui.heay@outlook.com",
       "url": "https://github.com/DaHui-BT"
     }
-  ]
+  ],
+  "description": "A zero-configuration solution for scoped CSS in React applications, providing automatic style encapsulation similar to Vue's scoped styles.",
+  "dependencies": {
+    "postcss-selector-parser": "^7.1.0"
+  }
 }

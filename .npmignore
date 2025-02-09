@@ -1,0 +1,5 @@
+examples/
+rollup.config.js
+node_modules/
+__tests__/
+tsconfig.json

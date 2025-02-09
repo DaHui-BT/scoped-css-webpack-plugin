@@ -1,11 +1,11 @@
 import React, { memo } from 'react'
-import './home.scss'
+import './home.css'
 
 const Home = memo(() => {
   return (
     <div>
       <h2>Home</h2>
-      <div className="content">Home Content</div>
+      <p>home content</p>
     </div>
   )
 })
